@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+# directories:
+<%-
+p("directories_to_create",[]).each do |dtc|
+  az_filters = []
+  if dtc.key?("az_filters") && dtc["az_filters"].is_a?(Array)
+    az_filters = dtc["az_filters"]
+  end
+  if az_filters.empty? || az_filters.include?(spec.az)
+-%>
+# <%=dtc["path"]%>
+DIR_PATH='<%=dtc["path"]%>'
+/bin/mkdir -p "$DIR_PATH"
+<% unless dtc["chown"].blank? %>/bin/chown <%= dtc["chown"] %> "$DIR_PATH"<% end %>
+<% unless dtc["chmod"].blank? %>/bin/chmod <%= dtc["chmod"] %> "$DIR_PATH"<% end %>
+<%-
+  end
+end
+-%>
+
+# files:
+<%-
+p("files_to_create",[]).each do |ftc|
+  az_filters = []
+  if dtc.key?("az_filters") && dtc["az_filters"].is_a?(Array)
+    az_filters = dtc["az_filters"]
+  end
+  if az_filters.empty? || az_filters.include?(spec.az)
+-%>
+# <%=ftc["path"]%>
+FILE_PATH='<%=ftc["path"]%>'
+/bin/mkdir -p "$(dirname "$FILE_PATH")"
+/bin/cat > "$FILE_PATH" << 'EOF'
+<%=ftc["content"] %>
+EOF
+<% unless ftc["chown"].blank? %>/bin/chown <%= ftc["chown"] %> "$FILE_PATH"<% end %>
+<% unless ftc["chmod"].blank? %>/bin/chmod <%= ftc["chmod"] %> "$FILE_PATH"<% end %>
+<%-
+  end
+end
+-%>

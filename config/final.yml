@@ -1,0 +1,7 @@
+name: boost
+final_name: boost
+blobstore:
+  provider: s3
+  options:
+    bucket_name: boshrelease-boost
+

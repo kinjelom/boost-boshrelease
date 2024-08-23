@@ -1,0 +1,2 @@
+# https://bosh.io/docs/jobs/#properties-spec
+spec:<%= spec.to_yaml.gsub(/^---.*$/, '').gsub(/ !ruby/, ' # !ruby').gsub(/^/, '  ') %>

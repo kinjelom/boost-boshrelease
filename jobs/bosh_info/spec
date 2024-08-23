@@ -1,0 +1,12 @@
+---
+name: bosh_info
+
+description: "Creates bosh related information"
+
+
+templates:
+  bosh-spec.yml.erb: bosh-spec.yml
+
+packages: []
+
+properties: {}

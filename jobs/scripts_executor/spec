@@ -1,0 +1,39 @@
+---
+name: scripts_executor
+
+description: "Execute specified scripts"
+
+
+templates:
+  pre-start.sh.erb: bin/pre-start
+  post-start.sh.erb: bin/post-start
+  post-deploy.sh.erb: bin/post-deploy
+  pre-stop.sh.erb: bin/pre-stop
+  post-stop.sh.erb: bin/post-stop
+
+packages: []
+
+
+properties:
+  # https://bosh.io/docs/job-lifecycle/
+  scripts_to_execute:
+    pre-start:
+      description: Script executed at the pre-start hook https://bosh.io/docs/pre-start/
+      default: ''
+      example: 'echo pre-start $(date +%G-%m-%d\T%H:%M:%S.%N) >> /tmp/scripts_executor.log'
+    post-start:
+      description: Script executed at the post-start hook https://bosh.io/docs/post-start/
+      default: ''
+      example: 'echo post-start $(date +%G-%m-%d\T%H:%M:%S.%N) >> /tmp/scripts_executor.log'
+    post-deploy:
+      description: Script executed at the post-deploy hook https://bosh.io/docs/post-deploy/
+      default: ''
+      example: 'echo post-deploy $(date +%G-%m-%d\T%H:%M:%S.%N) >> /tmp/scripts_executor.log'
+    pre-stop:
+      description: Script executed at the pre-stop hook https://bosh.io/docs/pre-stop/
+      default: ''
+      example: 'echo pre-stop $(date +%G-%m-%d\T%H:%M:%S.%N) >> /tmp/scripts_executor.log'
+    post-stop:
+      description: Script executed at the post-stop hook https://bosh.io/docs/post-stop/
+      default: ''
+      example: 'echo post-stop $(date +%G-%m-%d\T%H:%M:%S.%N) >> /tmp/scripts_executor.log'

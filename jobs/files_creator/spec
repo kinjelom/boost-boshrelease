@@ -1,0 +1,43 @@
+---
+name: files_creator
+
+description: "Creates specified files or directories"
+
+
+templates:
+  bin/pre-start.sh.erb: bin/pre-start
+
+packages: []
+
+properties:
+  directories_to_create:
+    description: A list of directories to create
+    default: []
+    example: |
+      - path: /tmp/dir-x
+        az_filters: ["z1", "z2"]
+      - path: /tmp/dir-y
+        chown: "vcap:vcap"
+        chmod: "700"
+  files_to_create:
+    description: A list of files to create
+    default: []
+    example: |
+      - path: /tmp/x.txt
+        az_filters: ["z1"]
+        content: |+
+          hello
+          z1!
+      - path: /tmp/x.txt
+        instances_filters:
+          azs: ["z2"]
+        content: |+
+          hello
+          z2!
+      - path: /tmp/y.sh
+        content: |+
+          #!/bin/bash
+
+          echo "hello world!"
+        chown: "vcap:vcap"
+        chmod: "700"
