@@ -24,13 +24,12 @@ properties:
     default: []
     example: |
       - path: /tmp/x.txt
-        az_filters: ["z1"]
+        azs_filters: ["z1"]
         content: |+
           hello
           z1!
       - path: /tmp/x.txt
-        instances_filters:
-          azs: ["z2"]
+        az_filters: ["z2"]
         content: |+
           hello
           z2!

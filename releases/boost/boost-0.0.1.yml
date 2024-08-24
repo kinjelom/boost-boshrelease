@@ -1,20 +1,20 @@
 name: boost
 version: 0.0.1
-commit_hash: non-git
-uncommitted_changes: false
+commit_hash: 7770f15
+uncommitted_changes: true
 jobs:
 - name: bosh_info
   version: e75da74e5df4b40bd825d2d37b254e2a6ba667649561291352ad7108c61dea80
   fingerprint: e75da74e5df4b40bd825d2d37b254e2a6ba667649561291352ad7108c61dea80
-  sha1: sha256:2a8c084f2719e682b95a760ff1aa490a6454dfcde57a0cbfe74b0c0b3520b153
+  sha1: sha256:8128ab6c484ee3415a88136bdfef00fd5a8600545ab0bc8ad8d289385145192d
   packages: []
 - name: files_creator
-  version: 9ad6b85c6ebb4c96944e1eae9dc8687a752e1f87affb3ae77c3198a117ce58db
-  fingerprint: 9ad6b85c6ebb4c96944e1eae9dc8687a752e1f87affb3ae77c3198a117ce58db
-  sha1: sha256:d829242e3dd442a82fcaaeec0b29025d512bb060765dfbde322cd02d92c84d60
+  version: d6f9764543f61a79f43e34d03b961ff3bc36f146b7a645f8934d0c1a12b0c626
+  fingerprint: d6f9764543f61a79f43e34d03b961ff3bc36f146b7a645f8934d0c1a12b0c626
+  sha1: sha256:3d8d48df22e1e6a2676f55021a586238f91f1c4266e444fe5aa8e71c9339baa8
   packages: []
 - name: scripts_executor
   version: 31ca6bf8445bc05e01943346f592ad08fe97603bd915bd5ce2faddbf21955059
   fingerprint: 31ca6bf8445bc05e01943346f592ad08fe97603bd915bd5ce2faddbf21955059
-  sha1: sha256:09fb435268ae906978a985feaeef21215b828c5752d60f181450c1eac79dec07
+  sha1: sha256:d2fe552dd381edf3a5f1daf25b73cbce0981e97928c129c2f9199eb0b119089b
   packages: []

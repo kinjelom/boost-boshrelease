@@ -3,11 +3,11 @@
 # directories:
 <%-
 p("directories_to_create",[]).each do |dtc|
-  az_filters = []
-  if dtc.key?("az_filters") && dtc["az_filters"].is_a?(Array)
-    az_filters = dtc["az_filters"]
+  azs_filters = []
+  if dtc.key?("azs_filters") && dtc["azs_filters"].is_a?(Array)
+    azs_filters = dtc["azs_filters"]
   end
-  if az_filters.empty? || az_filters.include?(spec.az)
+  if azs_filters.empty? || azs_filters.include?(spec.az)
 -%>
 # <%=dtc["path"]%>
 DIR_PATH='<%=dtc["path"]%>'
@@ -22,11 +22,11 @@ end
 # files:
 <%-
 p("files_to_create",[]).each do |ftc|
-  az_filters = []
-  if dtc.key?("az_filters") && dtc["az_filters"].is_a?(Array)
-    az_filters = dtc["az_filters"]
+  azs_filters = []
+  if ftc.key?("azs_filters") && ftc["azs_filters"].is_a?(Array)
+    azs_filters = ftc["azs_filters"]
   end
-  if az_filters.empty? || az_filters.include?(spec.az)
+  if azs_filters.empty? || azs_filters.include?(spec.az)
 -%>
 # <%=ftc["path"]%>
 FILE_PATH='<%=ftc["path"]%>'

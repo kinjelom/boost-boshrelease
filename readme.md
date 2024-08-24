@@ -30,11 +30,11 @@ instance_groups:
         chmod: "700"
       files_to_create:
       - path: /tmp/zone.txt
-        az_filters: ["z1"]
+        azs_filters: ["z1"]
         content: |+
           hello  z1!
       - path: /tmp/zone.txt
-        az_filters: ["z2"]
+        azs_filters: ["z2"]
         content: |+
           hello z2!
       - path: /tmp/my-script.sh
