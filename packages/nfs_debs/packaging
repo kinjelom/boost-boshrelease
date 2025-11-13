@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e -x
+
+
+mkdir -p "${BOSH_INSTALL_TARGET}/debs-utils"
+cp -a "${BOSH_COMPILE_TARGET}/debs-utils/"* "${BOSH_INSTALL_TARGET}/debs-utils/"
+
+source "${BOSH_INSTALL_TARGET}/debs-utils/debs-install.sh" # get_system_codename
+CODENAME=$(get_system_codename)
+
+cp -aR "${BOSH_COMPILE_TARGET}/nfs-debs-${CODENAME}/"* "${BOSH_INSTALL_TARGET}/"

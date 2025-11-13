@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+source meta-info/blobs-versions.env
+
+mkdir -p "${BOSH_INSTALL_TARGET}/bosh-utils"
+cp -a "${BOSH_COMPILE_TARGET}/bosh-utils/"* "${BOSH_INSTALL_TARGET}/bosh-utils"
+
+mkdir -p "${BOSH_INSTALL_TARGET}/bin"
+tar zxf "nfs_mounter/nfs_mounter_agent_${NFS_MOUNTER_AGENT_VERSION}.tar.gz" --strip 1 -C "${BOSH_INSTALL_TARGET}/bin"

@@ -5,6 +5,7 @@ This release provides a set of tools that can be utilized across various deploym
 - `files_creator`: A job that allows for the creation of directories and files with specified permissions and ownership and filtering by zones.
 - `scripts_executor`: A job designed to execute custom scripts at various lifecycle stages of a BOSH job.
 - `bosh_info`: A utility job that provides metadata and information about the BOSH environment.
+- `nfs_mounter`: A job that allows for mounting NFS shares.
 
 ## Usage
 
@@ -77,4 +78,33 @@ update:
   serial: false
   update_watch_time: 5000-1200000
 
+```
+
+nfs_mounter ops file:
+```yaml
+- type: replace
+  path: /releases/name=boost?
+  value:
+    name: boost
+    version: latest
+
+- type: replace
+  path: /instance_groups/name=proftpd/jobs/name=nfs_mounter?
+  value:
+    name: nfs_mounter
+    release: boost
+    tags:
+      prometheus_exporter_port: ((nfsma_port))
+    properties:
+      nfs_mounter:
+        agent:
+          listen_port: ((nfsma_port))
+        nfs_source: ((nfs_source))
+        mount_point: ((store_base_path))
+        mount_point_chown: "root:vcap"
+        mount_point_chmod: "0755"
+        ensure_dirs_when_mounted:
+          - subpath: "homes"
+            chmod: "0751"
+            chown: "root:vcap"
 ```

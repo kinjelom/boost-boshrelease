@@ -1,0 +1,156 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+LOG_DIR=/var/vcap/sys/log/nfs_mounter
+RUN_DIR=/var/vcap/sys/run/nfs_mounter
+NFSM_PKG_DIR=/var/vcap/packages/nfs_mounter
+
+exec >>"$LOG_DIR/ctl.stdout.log" 2>>"$LOG_DIR/ctl.stderr.log"
+
+source "$NFSM_PKG_DIR/bosh-utils/pid_utils.sh"
+source "$NFSM_PKG_DIR/bosh-utils/script_utils.sh"
+
+NFS_SOURCE='<%= p("nfs_mounter.nfs_source") %>'
+MOUNT_OPTS='<%= p("nfs_mounter.mount_opts") %>'
+MOUNT_POINT='<%= p("nfs_mounter.mount_point") %>'
+PIDFILE="$RUN_DIR/nfs_mounter.pid"
+
+is_mounted() {
+  mountpoint -q "$MOUNT_POINT"
+}
+
+is_nfs() {
+  # different distros can use findmnt or stat -f
+  local fstype
+  fstype=$(stat -f -c %T "$MOUNT_POINT" 2>/dev/null || echo "unknown")
+  [[ "$fstype" == "nfs" || "$fstype" == "nfs4" ]]
+}
+
+do_mount() {
+  if is_mounted && is_nfs; then
+    return 0
+  fi
+
+  log_info "Mounting NFS: $NFS_SOURCE -> $MOUNT_POINT"
+
+  # best-effort umount if something weird is there
+  if is_mounted; then
+    umount "$MOUNT_POINT" || {
+      log_error "Failed to unmount busy $MOUNT_POINT"
+      return 1
+    }
+  fi
+
+  mount -t nfs -o "$MOUNT_OPTS" "$NFS_SOURCE" "$MOUNT_POINT"
+}
+
+ensure_dirs() {
+  <%- p("nfs_mounter.ensure_dirs_when_mounted", []).each do |dir_info| -%>
+  # Ensure preconfigured directory exists on the mounted share
+  local subpath="<%= dir_info['subpath'] %>"
+  local target="${MOUNT_POINT}/${subpath}"
+
+  mkdir -p "$target"
+  <%- if dir_info['chmod'] -%>
+  chmod "<%= dir_info['chmod'] %>" "$target"
+  <%- end -%>
+  <%- if dir_info['chown'] -%>
+  chown "<%= dir_info['chown'] %>" "$target"
+  <%- end -%>
+  <%- end -%>
+}
+
+ensure_mounted() {
+  # Fast path: already OK, no extra logs
+  if is_mounted && is_nfs; then
+    ensure_dirs
+    return 0
+  fi
+
+  log_info "NFS not healthy, trying remount: $NFS_SOURCE -> $MOUNT_POINT"
+
+  if ! do_mount; then
+    log_error "Remount failed for $MOUNT_POINT"
+    return 1
+  fi
+
+  log_info "NFS repaired on $MOUNT_POINT"
+  ensure_dirs
+  return 0
+}
+
+check_health() {
+  if ! is_mounted; then
+    log_error "NFS health check failed for mount-point '$MOUNT_POINT': not mounted"
+    return 1
+  fi
+  if ! is_nfs; then
+    log_error "NFS health check failed for mount-point '$MOUNT_POINT': not NFS"
+    return 1
+  fi
+
+  local url="http://127.0.0.1:<%= p("nfs_mounter.agent.listen_port") %><%= p("nfs_mounter.agent.health_path") %>"
+  local attempts=3
+  local delay=1
+
+  for ((i=1; i<=attempts; i++)); do
+    if curl -fsS --max-time 3 "$url" >/dev/null 2>&1; then
+      return 0
+    fi
+
+    log_warn "NFS agent health check attempt $i/$attempts failed: $url"
+
+    if [[ $i -lt $attempts ]]; then
+      sleep "$delay"
+    fi
+  done
+
+  # All retries failed → treat as real failure
+  log_error "NFS agent health endpoint unreachable after $attempts attempts: $url"
+  return 1
+}
+
+case "${1:-}" in
+  start)
+    log_info "[start] starting nfs_mounter_agent..."
+    if ! ensure_mounted; then
+      log_error "[started] ensure_mounted failed, starting agent anyway for visibility"
+    fi
+
+    pid_guard "$PIDFILE" watchdog
+    echo $$ > "$PIDFILE"
+
+    exec chpst -u vcap:vcap "${NFSM_PKG_DIR}/bin/nfs_mounter_agent" \
+      --mount-point "$MOUNT_POINT" \
+      --listen-address '<%= p("nfs_mounter.agent.listen_host") %>:<%= p("nfs_mounter.agent.listen_port") %>' \
+      --check-interval '<%= p("nfs_mounter.agent.check_interval") %>' \
+      <%- if p("nfs_mounter.agent.enable_write_test") -%>
+      --enable-write-test \
+      <%- end -%>
+      --health-path '<%= p("nfs_mounter.agent.health_path") %>' \
+      --telemetry-path '<%= p("nfs_mounter.agent.telemetry_path") %>' \
+      --telemetry-namespace '<%= p("nfs_mounter.agent.telemetry_namespace") %>' \
+      >>"${LOG_DIR}/nfs_mounter.stdout.log" \
+      2>>"${LOG_DIR}/nfs_mounter.stderr.log"
+    ;;
+  stop)
+      if kill_and_wait "$PIDFILE"; then
+        log_info "[stop] kill_and_wait succeeded"
+      else
+        log_warn "[stop] kill_and_wait failed (process may not have exited cleanly)"
+      fi
+    ;;
+
+  ensure)
+    ensure_mounted
+    ;;
+
+  check)
+    check_health
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop|ensure|check}"
+    exit 64
+    ;;
+esac

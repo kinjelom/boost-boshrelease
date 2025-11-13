@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+LOG_DIR=/var/vcap/sys/log/nfs_mounter
+RUN_DIR=/var/vcap/sys/run/nfs_mounter
+NFSM_JOB_DIR=/var/vcap/jobs/nfs_mounter
+NFSM_PKG_DIR=/var/vcap/packages/nfs_mounter
+NFS_DEBS_DIR=/var/vcap/packages/nfs_debs
+MOUNT_POINT='<%= p('nfs_mounter.mount_point') %>'
+
+
+mkdir -p "$LOG_DIR" "$RUN_DIR"
+chown vcap:vcap "$LOG_DIR"
+
+# Log to files to aid troubleshooting
+exec >>"${LOG_DIR}/pre-start.stdout.log" 2>>"${LOG_DIR}/pre-start.stderr.log"
+
+
+mkdir -p "$MOUNT_POINT"
+chown "<%= p('nfs_mounter.mount_point_chown') %>" "$MOUNT_POINT"
+chmod "<%= p('nfs_mounter.mount_point_chmod') %>" "$MOUNT_POINT"
+
+
+source "$NFSM_PKG_DIR/bosh-utils/script_utils.sh"
+# Ensure required debs are installed for the current stemcell
+source "${NFS_DEBS_DIR}/debs-utils/debs-install.sh"
+
+CODENAME=$(get_system_codename)
+log_info "Installing ${CODENAME} NFS packages"
+(
+    flock -x 200
+    install_debs_from_dir "${NFS_DEBS_DIR}"
+) 200>/var/vcap/data/dpkg.lock
+
+
+log_info "Configuring nfs-common, idmapd.conf..."
+
+cp -f "${NFSM_JOB_DIR}/config/nfs-common" /etc/default/nfs-common
+cp -f "${NFSM_JOB_DIR}/config/idmapd.conf" /etc/idmapd.conf
+
+if command -v systemctl >/dev/null 2>&1; then
+  systemctl restart nfs-client.target || true
+else
+  service idmapd restart || true
+fi
+
+log_info "Ensure NFS is mounted before other jobs run"
+"${NFSM_JOB_DIR}/bin/ctl" ensure

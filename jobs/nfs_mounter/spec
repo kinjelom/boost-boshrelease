@@ -1,0 +1,88 @@
+---
+name: nfs_mounter
+
+description: "The NFS Mounter sets up an NFS mount at a specific location."
+
+templates:
+  bin/pre-start.sh.erb: bin/pre-start
+  bin/ctl.sh.erb: bin/ctl
+  config/idmapd.conf.erb: config/idmapd.conf
+  config/nfs-common.erb: config/nfs-common
+
+packages:
+  - nfs_mounter
+  - nfs_debs
+
+properties:
+
+  nfs_mounter.nfs_source:
+    description: "nfs source"
+    example: "nfs-server:/export/share"
+
+  nfs_mounter.mount_point:
+    description: "Location to mount the nfs share"
+    example: "/var/vcap/data/nfs"
+
+  nfs_mounter.mount_opts:
+    description: "nfs mount options"
+    default: "vers=4.1,hard,intr,timeo=600,retrans=2"
+
+  nfs_mounter.mount_point_chown:
+    description: "Chown the nfs mount point to this user:group"
+    default: "root:vcap"
+
+  nfs_mounter.mount_point_chmod:
+    description: "Chmod the nfs mount point to this value"
+    default: "0755"
+
+  nfs_mounter.ensure_dirs_when_mounted:
+    description: "Ensure these subdirectories exist on the NFS mount (on first mount and on subsequent checks)"
+    example:
+      - subpath: "homes"
+        chown: "root:vcap"
+        chmod: "0751"
+
+  nfs_mounter.nfs_common:
+    description: "Settings written to /etc/default/nfs-common"
+    default:
+      NEED_IDMAPD: yes
+      NEED_GSSD: no
+
+  nfs_mounter.idmapd_conf:
+    description: "Configuration values written into /etc/idmapd.conf to control NFSv4 ID mapping"
+    default:
+      General:
+        Verbosity: 0
+        Domain: localdomain
+        Pipefs-Directory: /var/lib/nfs/rpc_pipefs
+      Mapping:
+        Nobody-User: nobody
+        Nobody-Group: nogroup
+
+  nfs_mounter.agent.listen_host:
+    description: "IP address the nfs_mounter_agent HTTP server binds to"
+    default: "0.0.0.0"
+
+  nfs_mounter.agent.listen_port:
+    description: "TCP port the nfs_mounter_agent HTTP server listens on"
+    default: 9099
+
+  nfs_mounter.agent.check_interval:
+    description: "Interval between checks"
+    default: "15s"
+
+  nfs_mounter.agent.enable_write_test:
+    description: "Enable write/delete test in mount health checks"
+    default: false
+
+  nfs_mounter.agent.health_path:
+    description: "Base health path"
+    default: "/health"
+
+  nfs_mounter.agent.telemetry_path:
+    description: "Metrics endpoint path"
+    default: "/metrics"
+
+  nfs_mounter.agent.telemetry_namespace:
+    description: "Metric namespace"
+    default: "nfsma"

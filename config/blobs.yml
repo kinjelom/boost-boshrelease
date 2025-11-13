@@ -1,0 +1,84 @@
+nfs-debs-bionic/keyutils/keyutils_1.5.9-9.2ubuntu2_amd64.deb:
+  size: 47896
+  object_id: 74b4bc7d-3e43-467c-70e9-9b8bafd879e0
+  sha: sha256:223a7160b6e2680d2b1f43abb067e0ccc08906bb2c5448ad4b3065f38309bbb5
+nfs-debs-bionic/libevent-2.1-6/libevent-2.1-6_2.1.8-stable-4build1_amd64.deb:
+  size: 133328
+  object_id: ee752ce8-08b2-486f-7ac6-49a5f3b76884
+  sha: sha256:76bc94b3bb4356673c61dd2a4a7b06f40de21dab051aa4b31282aa9d7798b383
+nfs-debs-bionic/libnfsidmap2/libnfsidmap2_0.25-5.1_amd64.deb:
+  size: 27180
+  object_id: 46738386-da8a-455d-467b-31977f0ef375
+  sha: sha256:ae6eaf479efa010b313b4e0cf18812e3ca6eb50b6392b7b52e854d6acafe866b
+nfs-debs-bionic/nfs-common/nfs-common_1.3.4-2.1ubuntu5.5_amd64.deb:
+  size: 205604
+  object_id: cfe73d33-ab95-4981-4889-3ab777dca19c
+  sha: sha256:e5c2638a36827b3b7817cd8d4bf0bfa60c4e88f70d45e89a53b50cb98bad029e
+nfs-debs-bionic/rpcbind/rpcbind_0.2.3-0.6ubuntu0.18.04.4_amd64.deb:
+  size: 42124
+  object_id: 03288d22-56b9-4fa1-67c3-03a93eba3aac
+  sha: sha256:ad1e5849523af0dba54a1f7e7f54d11f1a7a0131ce5de858a5ff37e61c27b35d
+nfs-debs-jammy/keyutils/keyutils_1.6.1-2ubuntu3_amd64.deb:
+  size: 50410
+  object_id: 6a999298-7432-466b-5666-4eda29e88633
+  sha: sha256:39da334791f57894fa13f680470e048383074b6c02aeb58e206033c5a3d0e925
+nfs-debs-jammy/libevent-core-2.1-7/libevent-core-2.1-7_2.1.12-stable-1build3_amd64.deb:
+  size: 93926
+  object_id: eb759841-6be6-49b1-40b8-922c025853d5
+  sha: sha256:9317ae74915b9e4372f7506fbd16ae2a021e0ead79a8d88f96dad49b87d94508
+nfs-debs-jammy/libnfsidmap1/libnfsidmap1_2.6.1-1ubuntu1.2_amd64.deb:
+  size: 42918
+  object_id: d3d0400d-1915-4ed8-79d0-b3f4b04c9c51
+  sha: sha256:974f22937a4a032fc59deaf68770c9e9c99bd107ada8677da9f2b8d24c0601c9
+nfs-debs-jammy/nfs-common/nfs-common_2.6.1-1ubuntu1.2_amd64.deb:
+  size: 240800
+  object_id: 3d38c0d1-490d-4297-4e2a-37babc415e6c
+  sha: sha256:100a6adfb980ffbfacf2318ecb56421b6299e3da64eb9cbd4c2f5e73aa9588c3
+nfs-debs-jammy/rpcbind/rpcbind_1.2.6-2build1_amd64.deb:
+  size: 46608
+  object_id: ffc499c2-104c-4380-6a75-9d37343a44c9
+  sha: sha256:40f5113c7d8711c2ac8ad50ffee7fa0890731e22da0a99bee3fbc6cdd1f451ac
+nfs-debs-noble/keyutils/keyutils_1.6.3-3build1_amd64.deb:
+  size: 56766
+  object_id: 3765c086-d5d0-4612-46c3-bd68d73e82f3
+  sha: sha256:9882ac38c3d4b44c597183c95744a74049d9bdc77dc4498ef1484c3cde26f1c2
+nfs-debs-noble/libevent-core-2.1-7t64/libevent-core-2.1-7t64_2.1.12-stable-9ubuntu2_amd64.deb:
+  size: 91272
+  object_id: 47cf6ed3-0f80-46ba-6721-b06e16c803c1
+  sha: sha256:3da51e864e4067779a2ba3a87daf5e4d8030c0aaa6291a1ce12483d4f73bf752
+nfs-debs-noble/libnfsidmap1/libnfsidmap1_2.6.4-3ubuntu5.1_amd64.deb:
+  size: 48314
+  object_id: d990c654-137d-418f-4c22-d9f03c6cf950
+  sha: sha256:947a27066f6dd49bccb1f80ef6db8dabb9de6671b5cb2ec2a8e5648a78133117
+nfs-debs-noble/nfs-common/nfs-common_2.6.4-3ubuntu5.1_amd64.deb:
+  size: 248148
+  object_id: 2ccf7307-83d6-421a-600e-53d635196e4e
+  sha: sha256:c1224e6d3eb7beaa55e765d7288b4f9715a343e11f7ccea9cc1eb0dc33cf82cf
+nfs-debs-noble/rpcbind/rpcbind_1.2.6-7ubuntu2_amd64.deb:
+  size: 46472
+  object_id: 2605a3e2-eec5-43a7-4062-7006b1b801fa
+  sha: sha256:5a02b06acb55b9d2806ee2e757b234bae5a090e875564b0bf46e676438ec42f3
+nfs-debs-xenial/keyutils/keyutils_1.5.9-8ubuntu1_amd64.deb:
+  size: 47054
+  object_id: 88501c58-1309-4426-539e-891c3c34820b
+  sha: sha256:782865f7688ecc2a168f6c51e8e63f44326d73144a9df35087fd1e55e30d23db
+nfs-debs-xenial/libevent-2.0-5/libevent-2.0-5_2.0.21-stable-2ubuntu0.16.04.1_amd64.deb:
+  size: 114014
+  object_id: 407bd759-12b6-4427-411c-e9e0f92e5d2e
+  sha: sha256:e1acdffde386a4da7de46166ffd199771a13498f5d4fc38d61b3fa0eba305572
+nfs-debs-xenial/libnfsidmap2/libnfsidmap2_0.25-5_amd64.deb:
+  size: 32182
+  object_id: 51374286-e9e2-4040-4ae9-311ebffce45a
+  sha: sha256:ed00ae6b3efc4c28068e5f984d8c69942c68502593da945b89b0045e7fcef396
+nfs-debs-xenial/nfs-common/nfs-common_1.2.8-9ubuntu12.3_amd64.deb:
+  size: 184900
+  object_id: 13d3999d-11a9-4aae-6543-805859ce2ea0
+  sha: sha256:46eb8012fac5b45ab75b27da112dcaee37a48ed8cf1e20bf6ebe673af1f5c3eb
+nfs-debs-xenial/rpcbind/rpcbind_0.2.3-0.2_amd64.deb:
+  size: 40252
+  object_id: 3832b4b1-f8d2-4c9e-45cf-ecf72e2baaf6
+  sha: sha256:7c9d1aca35cd01ef0c9cbc90f93e993116e84de1967c429e1130a16281fd3a6e
+nfs_mounter/nfs_mounter_agent_0.1.0.tar.gz:
+  size: 6829022
+  object_id: 50ec771e-7e74-4168-599a-60fe414356fe
+  sha: sha256:e6c008659da33e2fe899357384686e52ef8241a27f0b0bdb8ee142056a7153ec

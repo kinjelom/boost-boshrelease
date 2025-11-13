@@ -1,0 +1,13 @@
+# monit 5.2.5 https://gist.github.com/oppegard/46dfa1e40b46aff1fa73c81b10341cab
+
+check process nfs_mounter
+  with pidfile /var/vcap/sys/run/nfs_mounter/nfs_mounter.pid
+  start program "/var/vcap/jobs/nfs_mounter/bin/ctl start" with timeout 60 seconds
+  stop  program "/var/vcap/jobs/nfs_mounter/bin/ctl stop"
+  group vcap
+
+check host nfs_mounter_agent with address 127.0.0.1
+  if failed port <%= p("nfs_mounter.agent.listen_port") %> protocol http
+     and request "<%= p("nfs_mounter.agent.health_path") %>"
+  then restart
+  group vcap

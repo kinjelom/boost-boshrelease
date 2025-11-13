@@ -1,0 +1,6 @@
+---
+name: nfs_mounter
+files:
+  - bosh-utils/*
+  - meta-info/blobs-versions.env
+  - nfs_mounter/*.tar.gz

@@ -1,0 +1,38 @@
+name: boost
+version: 0.2.0
+commit_hash: 28f9fbe
+uncommitted_changes: false
+jobs:
+- name: bosh_info
+  version: e75da74e5df4b40bd825d2d37b254e2a6ba667649561291352ad7108c61dea80
+  fingerprint: e75da74e5df4b40bd825d2d37b254e2a6ba667649561291352ad7108c61dea80
+  sha1: sha256:8128ab6c484ee3415a88136bdfef00fd5a8600545ab0bc8ad8d289385145192d
+  packages: []
+- name: files_creator
+  version: d6f9764543f61a79f43e34d03b961ff3bc36f146b7a645f8934d0c1a12b0c626
+  fingerprint: d6f9764543f61a79f43e34d03b961ff3bc36f146b7a645f8934d0c1a12b0c626
+  sha1: sha256:3d8d48df22e1e6a2676f55021a586238f91f1c4266e444fe5aa8e71c9339baa8
+  packages: []
+- name: nfs_mounter
+  version: 160250eeb51358ab772d97f500836ddcd4bf3b5097abd9255bb13191e601010e
+  fingerprint: 160250eeb51358ab772d97f500836ddcd4bf3b5097abd9255bb13191e601010e
+  sha1: sha256:2b8464fd8506f4ed4a3f329182b89cc23c96a5400e98f44cf2579d75e23686a1
+  packages:
+  - nfs_mounter
+  - nfs_debs
+- name: scripts_executor
+  version: 31ca6bf8445bc05e01943346f592ad08fe97603bd915bd5ce2faddbf21955059
+  fingerprint: 31ca6bf8445bc05e01943346f592ad08fe97603bd915bd5ce2faddbf21955059
+  sha1: sha256:d2fe552dd381edf3a5f1daf25b73cbce0981e97928c129c2f9199eb0b119089b
+  packages: []
+packages:
+- name: nfs_debs
+  version: 283a63c61b3ddbab989f03350b4a7a647f35b4e3d2e7c85ae48d811316f7b046
+  fingerprint: 283a63c61b3ddbab989f03350b4a7a647f35b4e3d2e7c85ae48d811316f7b046
+  sha1: sha256:5ae1e373ad2c473a5a45cfd63fd473fd7098bd0cd0a2793e688b2e94a0796ce8
+  dependencies: []
+- name: nfs_mounter
+  version: d5f04b36a3d62ca02ddfb4dc8ad40d7d0f9e3d9f56a5eea24c84bd5ab595d761
+  fingerprint: d5f04b36a3d62ca02ddfb4dc8ad40d7d0f9e3d9f56a5eea24c84bd5ab595d761
+  sha1: sha256:8221771b09a411a27609dc5c0e6a61c10a0f23b8c9af11e0da7aa4c96b20aa1a
+  dependencies: []

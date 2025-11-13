@@ -1,0 +1,7 @@
+<%- p("nfs_mounter.idmapd_conf", {}).each do |section, properties| -%>
+[<%= section %>]
+<%- properties.each do |key, val| -%>
+<%= key %> = <%= val %>
+<%- end -%>
+
+<%- end -%>

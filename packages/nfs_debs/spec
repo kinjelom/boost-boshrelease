@@ -1,0 +1,6 @@
+---
+name: nfs_debs
+
+files:
+  - debs-utils/*
+  - nfs-debs-*/*/*.deb
